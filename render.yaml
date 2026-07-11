@@ -1,0 +1,55 @@
+# Render Blueprint — deploys both services in one go.
+# In the Render dashboard: New -> Blueprint -> point at this repo.
+# Docs: https://render.com/docs/blueprint-spec
+
+services:
+  # ---------- Backend: FastAPI ----------
+  - type: web
+    name: app-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+    envVars:
+      - key: MONGO_URL
+        sync: false            # set this to your MongoDB Atlas connection string in the Render dashboard
+      - key: DB_NAME
+        value: app_database
+      - key: CORS_ORIGINS
+        sync: false            # set to your frontend's Render URL, e.g. https://app-frontend.onrender.com
+      - key: JWT_SECRET
+        generateValue: true    # Render will generate a strong random secret for you
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: APP_NAME
+        value: app
+      - key: ENV
+        value: production
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+    disk:
+      name: uploads
+      mountPath: /var/data/uploads
+      sizeGB: 1
+
+  # ---------- Frontend: React static site ----------
+  - type: web
+    name: app-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: yarn install --frozen-lockfile && yarn build
+    staticPublishPath: build
+    autoDeploy: true
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        sync: false            # set to your backend's Render URL, e.g. https://app-backend.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

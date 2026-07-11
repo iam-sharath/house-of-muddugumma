@@ -1,0 +1,132 @@
+{
+  "theme": "LIGHT",
+  "archetype": "5 (Luxury) & 1 (Organic & Earthy)",
+  "design_philosophy": "Minimal, Premium, Elegant, Luxury, Modern, Fast, Mobile First. An editorial magazine-style aesthetic inspired by Sabyasachi and Anita Dongre. Generous whitespace, elegant typography, warm and soft shadows.",
+  "colors": {
+    "background": "#F9F6F0",
+    "background_secondary": "#FFFFFF",
+    "primary": "#D4AF37",
+    "primary_hover": "#B8962E",
+    "accent_brown": "#5C4033",
+    "text_primary": "#2C1E16",
+    "text_secondary": "#594A42",
+    "border": "#E8E1D7",
+    "surface": "#FFFFFF",
+    "gold_light": "#FDFBF7",
+    "error": "#9E2A2B",
+    "success": "#2D6A4F"
+  },
+  "typography": {
+    "heading_font": "Cormorant Garamond",
+    "body_font": "Outfit",
+    "font_weights": {
+      "light": 300,
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "scales": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none",
+      "h2": "text-3xl sm:text-4xl tracking-tight",
+      "h3": "text-2xl sm:text-3xl",
+      "h4": "text-xl sm:text-2xl",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm uppercase tracking-[0.2em]"
+    }
+  },
+  "spacing_and_layout": {
+    "section_padding": "py-16 md:py-24",
+    "container_padding": "px-4 sm:px-6 lg:px-8",
+    "gap_standard": "gap-8 md:gap-12",
+    "grid_bento": "grid-cols-1 md:grid-cols-12 gap-8",
+    "border_radius": {
+      "small": "rounded-md",
+      "standard": "rounded-xl",
+      "large": "rounded-2xl",
+      "full": "rounded-full"
+    }
+  },
+  "motion_and_interaction": {
+    "hover_state": "transition-all duration-300 ease-out",
+    "hover_lift": "-translate-y-1 shadow-[0_12px_24px_rgba(92,64,51,0.12)]",
+    "button_hover": "hover:bg-primary_hover hover:text-white transition-colors duration-300",
+    "image_hover": "group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+  },
+  "shadows": {
+    "soft": "shadow-[0_4px_20px_rgba(92,64,51,0.06)]",
+    "medium": "shadow-[0_8px_30px_rgba(92,64,51,0.08)]",
+    "floating": "shadow-[0_12px_40px_rgba(92,64,51,0.12)]"
+  },
+  "components": {
+    "hero_banner": {
+      "style": "Full width or large contained block, high-quality image background with a subtle linear gradient overlay (e.g., bg-black/20) to ensure text contrast. Text should use h1 styling in White or Gold.",
+      "layout": "Flex column, centered or left-aligned depending on image composition. Generous padding."
+    },
+    "product_card": {
+      "style": "Minimalist. Image takes 80%+ of height. Soft rounded corners (rounded-xl). Hovering on the image reveals Quick View and View Details buttons. Image subtly scales on hover.",
+      "typography": "Product name in text-lg medium (heading font), price in text-base (body font) text-accent_brown.",
+      "shadow": "No shadow default, soft shadow on hover."
+    },
+    "buttons": {
+      "primary": "bg-primary text-white rounded-full px-8 py-3 uppercase tracking-wider text-sm font-medium hover:bg-primary_hover transition-colors",
+      "secondary": "border border-primary text-primary rounded-full px-8 py-3 uppercase tracking-wider text-sm font-medium hover:bg-gold_light transition-colors",
+      "whatsapp": "bg-[#25D366] text-white rounded-full px-8 py-3 font-medium hover:bg-[#128C7E] flex items-center gap-2"
+    },
+    "admin_dashboard": {
+      "style": "Clean, utilitarian but retaining brand colors. White background for cards, Cream background for main layout. Primary Gold for active states/CTAs.",
+      "components": "Shadcn UI based: Tables for products, Sidebar for navigation, Form for product adding. Data density should be balanced."
+    },
+    "navigation": {
+      "style": "Glassmorphism (bg-white/80 backdrop-blur-md) or solid Cream. Sticky at top. Logo centered or left. Links in elegant uppercase.",
+      "mobile": "Hamburger menu opening a full-screen or elegant side drawer."
+    }
+  },
+  "media": {
+    "hero_banners": [
+      {
+        "url": "https://images.unsplash.com/photo-1569810020669-aa9d38003ea7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwzfHxwcmVtaXVtJTIwaW5kaWFuJTIwd29tZW4lMjBmYXNoaW9uJTIwZWRpdG9yaWFsfGVufDB8fHx8MTc4MzQwNTI1MXww&ixlib=rb-4.1.0&q=85",
+        "description": "Editorial shot of women in elegant red dresses",
+        "category": "hero"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1622207691293-5cd80466dab3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwc2lsayUyMHNhcmVlJTIwbW9kZWwlMjBsdXh1cnl8ZW58MHx8fHwxNzgzNDA1MjUxfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Close up of model with luxury gold jewelry and sari",
+        "category": "hero_secondary"
+      }
+    ],
+    "products": [
+      {
+        "url": "https://images.unsplash.com/photo-1641699862936-be9f49b1c38d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwc2lsayUyMHNhcmVlJTIwbW9kZWwlMjBsdXh1cnl8ZW58MHx8fHwxNzgzNDA1MjUxfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Woman in purple and gold luxury sari",
+        "category": "product"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1609748340041-f5d61e061ebc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwzfHxlbGVnYW50JTIwc2lsayUyMHNhcmVlJTIwbW9kZWwlMjBsdXh1cnl8ZW58MHx8fHwxNzgzNDA1MjUxfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Woman in elegant green and white dress",
+        "category": "product"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1714682597753-a646ba506cee?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwyfHxsdXh1cnklMjB3b21lbiUyMGRyZXNzJTIwbmV1dHJhbCUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzgzNDA1MjUxfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Neutral luxury texture for collections/backgrounds",
+        "category": "collection_cover"
+      }
+    ],
+    "about_gallery": [
+      {
+        "url": "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwYm91dGlxdWUlMjBpbnRlcmlvciUyMGx1eHVyeXxlbnwwfHx8fDE3ODM0MDUyNTF8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Luxury fashion boutique interior",
+        "category": "about_store"
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Use Tailwind CSS for styling. Set the custom fonts in tailwind.config.js.",
+    "Implement the customer-facing website with an editorial layout: generous padding (py-16 or py-24), large images, and serif headings.",
+    "For the Customer Homepage, structure the 'Featured Collection' in an asymmetric bento grid for visual interest.",
+    "All buttons and clickable elements must include a data-testid attribute in kebab-case (e.g., data-testid='add-to-cart-button').",
+    "Cart must not have a standard payment checkout. Instead, accumulate items in state and when checking out, format a WhatsApp message with the list of items and redirect to WhatsApp using the provided button styling.",
+    "Admin Dashboard should use a consistent sidebar layout with Shadcn UI components. Maintain the warm color palette (accent_brown text, primary gold active states) to keep it connected to the brand.",
+    "Ensure all images maintain aspect ratio. For product cards, enforce a standard aspect ratio (e.g., aspect-[3/4]) with object-cover."
+  ]
+}

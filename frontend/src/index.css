@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Great+Vibes&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 96%;
+    --foreground: 20 34% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 34% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 34% 12%;
+    --primary: 43 65% 52%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 25% 92%;
+    --secondary-foreground: 20 34% 12%;
+    --muted: 40 20% 94%;
+    --muted-foreground: 20 15% 40%;
+    --accent: 43 65% 90%;
+    --accent-foreground: 20 34% 12%;
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 35 22% 87%;
+    --input: 35 22% 87%;
+    --ring: 43 65% 52%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-cream text-brown-dark antialiased;
+    font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', ui-serif, Georgia, serif;
+    @apply text-brown-dark;
+  }
+  ::selection { background: #D4AF37; color: white; }
+}
+
+@layer components {
+  .container-luxe {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.28em] text-gold;
+  }
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 bg-gold text-white rounded-full px-7 py-3 uppercase tracking-[0.18em] text-xs font-medium hover:bg-gold-hover transition-colors duration-300;
+  }
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center gap-2 border border-gold text-gold rounded-full px-7 py-3 uppercase tracking-[0.18em] text-xs font-medium hover:bg-gold hover:text-white transition-colors duration-300;
+  }
+  .btn-wa {
+    @apply inline-flex items-center justify-center gap-2 bg-[#25D366] text-white rounded-full px-7 py-3 font-medium hover:bg-[#128C7E] transition-colors duration-300;
+  }
+  .card-luxe {
+    @apply bg-white rounded-2xl shadow-soft hover:shadow-medium transition-shadow duration-500;
+  }
+  .divider-gold {
+    @apply inline-block h-px w-16 bg-gold align-middle;
+  }
+  .link-underline {
+    @apply relative after:absolute after:left-0 after:-bottom-1 after:h-px after:w-0 after:bg-gold hover:after:w-full after:transition-all after:duration-300;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, #f0e9de 0px, #f7f2e8 40px, #f0e9de 80px);
+    background-size: 1000px 100%;
+    @apply animate-shimmer rounded-lg;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  [data-debug-wrapper="true"] { display: contents !important; }
+}

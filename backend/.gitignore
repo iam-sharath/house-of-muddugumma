@@ -1,0 +1,22 @@
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Uploaded files (local disk storage)
+uploads/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Ruff / mypy caches
+.ruff_cache/
+.mypy_cache/
