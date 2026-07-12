@@ -17,7 +17,11 @@ async def upload_file(file: UploadFile = File(...), user: dict = Depends(require
         data=data,
         content_type=file.content_type or "application/octet-stream",
     )
-    return {"path": result["path"], "url": f"/api/files/{result['path']}"}
+    path = result["path"]
+    # Cloudinary already returns a full https:// URL; local disk returns a
+    # relative path that needs to go through our /api/files route.
+    url = path if path.startswith("http") else f"/api/files/{path}"
+    return {"path": path, "url": url}
 
 
 @router.get("/files/{path:path}")
