@@ -15,15 +15,16 @@ export function AppProviders({ children }) {
 
   const addToCart = (product, opts = {}) => {
     const color = opts.color || (product.colors?.[0] || "");
+    const size = opts.size || (product.sizes?.[0] || "");
     const qty = opts.qty || 1;
     setItems((prev) => {
-      const key = `${product.id}-${color}`;
+      const key = `${product.id}-${color}-${size}`;
       const existing = prev.find((i) => i.key === key);
       if (existing) return prev.map((i) => i.key === key ? { ...i, qty: i.qty + qty } : i);
       return [...prev, {
         key, id: product.id, slug: product.slug, name: product.name,
         image: product.images?.[0] || "", price_inr: product.price_inr,
-        price_gbp: product.price_gbp, color, qty
+        price_gbp: product.price_gbp, color, size, qty
       }];
     });
   };
