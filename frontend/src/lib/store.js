@@ -52,7 +52,7 @@ export function AppProviders({ children }) {
   // Auth
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
-const checkAuth = useCallback(async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const { data } = await api.get("/auth/session");
       setUser(data.user);
