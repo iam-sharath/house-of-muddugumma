@@ -33,6 +33,16 @@ export default function QuickView({ product, onOpenChange }) {
                 </div>
               </div>
             ) : null}
+            {product.sizes?.length ? (
+              <div className="mt-5">
+                <div className="text-xs uppercase tracking-[0.2em] text-brown-soft">Sizes</div>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {product.sizes.map((s) => (
+                    <span key={s} className="px-3 py-1 rounded-full border border-border text-xs">{s}</span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
             <div className="mt-auto pt-6 flex gap-3">
               <button data-testid="quickview-add-cart" onClick={() => { addToCart(product); toast.success("Added to cart"); onOpenChange(false); }} className="btn-gold flex-1">Add to Cart</button>
               <Link to={`/product/${product.slug}`} className="btn-outline-gold flex-1" onClick={() => onOpenChange(false)}>View Details</Link>
