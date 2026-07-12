@@ -11,6 +11,7 @@ export function buildWhatsAppUrl(items, settings, extraNote = "") {
   items.forEach((it, idx) => {
     lines.push(`${idx + 1}. ${it.name}`);
     if (it.color) lines.push(`   Color: ${it.color}`);
+    if (it.size) lines.push(`   Size: ${it.size}`);
     lines.push(`   Quantity: ${it.qty}`);
     lines.push(`   Price: ₹${it.price_inr}${it.price_gbp ? ` / £${it.price_gbp}` : ""}`);
     lines.push("");
