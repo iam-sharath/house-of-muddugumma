@@ -54,6 +54,7 @@ class ProductIn(BaseModel):
     collections: List[str] = []
     tags: List[str] = []
     colors: List[str] = []
+    sizes: List[str] = []
     images: List[str] = []
     status: str = "published"  # published, draft, hidden
 
