@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
-import { api } from "./api";
+import { api, setToken } from "./api";
 
 const CartCtx = createContext(null);
 const SettingsCtx = createContext({});
@@ -63,11 +63,13 @@ export function AppProviders({ children }) {
 
   const login = async (email, password) => {
     const { data } = await api.post("/auth/login", { email, password });
+    setToken(data.token);
     setUser(data);
     return data;
   };
   const logout = async () => {
     try { await api.post("/auth/logout"); } catch {}
+    setToken(null);
     setUser(null);
   };
 
