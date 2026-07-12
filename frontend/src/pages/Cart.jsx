@@ -46,6 +46,7 @@ export default function Cart() {
               <div className="flex-1 min-w-0">
                 <Link to={`/product/${it.slug}`} className="font-serif text-lg hover:text-gold line-clamp-1">{it.name}</Link>
                 {it.color && <div className="mt-1 text-xs text-brown-soft">Color: {it.color}</div>}
+                {it.size && <div className="mt-1 text-xs text-brown-soft">Size: {it.size}</div>}
                 <div className="mt-2 text-sm font-medium">₹{Number(it.price_inr).toLocaleString("en-IN")}
                   {it.price_gbp ? <span className="ml-3 text-brown-soft">£{Number(it.price_gbp).toLocaleString("en-GB")}</span> : null}
                 </div>
