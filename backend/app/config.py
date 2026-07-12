@@ -49,7 +49,19 @@ class Settings:
     ]
 
     # File storage (local disk by default — see app/storage.py)
+    # File storage (local disk by default — see app/storage.py)
     UPLOAD_DIR: Path = Path(os.environ.get("UPLOAD_DIR", ROOT_DIR / "uploads"))
+
+    # Cloudinary (optional). If all three are set, uploads go to Cloudinary
+    # instead of local disk — required on Render's Free tier, since local
+    # disk there is wiped on every redeploy.
+    CLOUDINARY_CLOUD_NAME: str = os.environ.get("CLOUDINARY_CLOUD_NAME", "")
+    CLOUDINARY_API_KEY: str = os.environ.get("CLOUDINARY_API_KEY", "")
+    CLOUDINARY_API_SECRET: str = os.environ.get("CLOUDINARY_API_SECRET", "")
+
+    @property
+    def USE_CLOUDINARY(self) -> bool:
+        return bool(self.CLOUDINARY_CLOUD_NAME and self.CLOUDINARY_API_KEY and self.CLOUDINARY_API_SECRET)
 
     # Cookies should only be marked "secure" behind HTTPS (Render gives you HTTPS)
     COOKIE_SECURE: bool = os.environ.get("COOKIE_SECURE", "false").lower() == "true"
