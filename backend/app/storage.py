@@ -1,13 +1,12 @@
 """File storage backend.
 
-Stores uploaded files on local disk under `settings.UPLOAD_DIR`. This
-works out of the box on Render (attach a persistent disk mounted at
-that path so uploads survive deploys) and needs zero third-party
-accounts to get started.
+Uses Cloudinary when CLOUDINARY_* env vars are set (recommended for
+production — required on Render's Free tier, since local disk there
+gets wiped on every redeploy). Falls back to local disk otherwise,
+which is fine for local development.
 
-If you outgrow local disk later (e.g. multiple backend instances),
-swap `save_file` / `read_file` / `delete_file` below for a call to
-S3 / Cloudinary / R2 — the rest of the app only calls this module.
+The rest of the app only calls save_file() / delete_file() below, so
+swapping providers later only means changing this file.
 """
 import uuid
 from pathlib import Path
@@ -16,6 +15,17 @@ from typing import Tuple
 from fastapi import HTTPException
 
 from app.config import settings
+
+if settings.USE_CLOUDINARY:
+    import cloudinary
+    import cloudinary.uploader
+
+    cloudinary.config(
+        cloud_name=settings.CLOUDINARY_CLOUD_NAME,
+        api_key=settings.CLOUDINARY_API_KEY,
+        api_secret=settings.CLOUDINARY_API_SECRET,
+        secure=True,
+    )
 
 
 def _safe_path(relative_path: str) -> Path:
@@ -27,6 +37,16 @@ def _safe_path(relative_path: str) -> Path:
 
 
 def save_file(folder: str, filename: str, data: bytes, content_type: str) -> dict:
+    if settings.USE_CLOUDINARY:
+        result = cloudinary.uploader.upload(
+            data,
+            folder=folder,
+            public_id=str(uuid.uuid4()),
+            resource_type="image",
+        )
+        # secure_url is a full https:// URL — the frontend uses it as-is.
+        return {"path": result["secure_url"], "size": result.get("bytes", len(data)), "content_type": content_type}
+
     ext = filename.rsplit(".", 1)[-1].lower() if "." in filename else "bin"
     relative_path = f"{folder}/{uuid.uuid4()}.{ext}"
     full_path = _safe_path(relative_path)
@@ -36,6 +56,8 @@ def save_file(folder: str, filename: str, data: bytes, content_type: str) -> dic
 
 
 def read_file(relative_path: str) -> Tuple[bytes, str]:
+    """Only used for the local-disk fallback — Cloudinary URLs are served
+    directly by Cloudinary and never hit this function."""
     full_path = _safe_path(relative_path)
     if not full_path.is_file():
         raise HTTPException(status_code=404, detail="Not found")
@@ -44,6 +66,8 @@ def read_file(relative_path: str) -> Tuple[bytes, str]:
 
 
 def delete_file(relative_path: str) -> None:
+    if settings.USE_CLOUDINARY:
+        return  # cleanup of old Cloudinary assets is a manual/dashboard task for now
     full_path = _safe_path(relative_path)
     full_path.unlink(missing_ok=True)
 
