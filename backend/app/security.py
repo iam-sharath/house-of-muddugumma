@@ -43,19 +43,33 @@ def create_access_token(user_id: str, email: str) -> str:
 
 
 def set_auth_cookie(response: Response, token: str) -> None:
+    # Frontend and backend live on different subdomains in production
+    # (e.g. onrender.com), which makes this a cross-site request from the
+    # browser's point of view. Cross-site cookies require SameSite=None,
+    # which in turn requires Secure=True (HTTPS only). Locally, over plain
+    # HTTP, we fall back to SameSite=Lax since None+Secure won't work
+    # without HTTPS.
+    samesite = "none" if settings.COOKIE_SECURE else "lax"
     response.set_cookie(
         "access_token",
         token,
         httponly=True,
         secure=settings.COOKIE_SECURE,
-        samesite="lax",
+        samesite=samesite,
         max_age=settings.ACCESS_TOKEN_EXPIRE_HOURS * 3600,
         path="/",
     )
 
 
 def clear_auth_cookie(response: Response) -> None:
-    response.delete_cookie("access_token", path="/")
+    samesite = "none" if settings.COOKIE_SECURE else "lax"
+    response.delete_cookie(
+        "access_token",
+        path="/",
+        secure=settings.COOKIE_SECURE,
+        httponly=True,
+        samesite=samesite,
+    )
 
 
 async def get_current_user(request: Request) -> dict:
