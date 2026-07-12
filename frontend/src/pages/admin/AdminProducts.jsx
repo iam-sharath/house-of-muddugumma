@@ -144,6 +144,7 @@ function ProductForm({ initial, categories, collections, onClose, onSaved }) {
     collections: initial?.collections || [],
     tags: initial?.tags || [],
     colors: initial?.colors || [],
+    sizes: initial?.sizes || [],
     images: initial?.images || [],
     status: initial?.status || "published",
   });
@@ -193,6 +194,7 @@ function ProductForm({ initial, categories, collections, onClose, onSaved }) {
 
   const [tagInput, setTagInput] = useState("");
   const [colorInput, setColorInput] = useState("");
+  const [sizeInput, setSizeInput] = useState("");
 
   return (
     <div className="fixed inset-0 z-50 bg-black/40 grid place-items-center p-4 overflow-y-auto" onClick={onClose}>
@@ -280,6 +282,19 @@ function ProductForm({ initial, categories, collections, onClose, onSaved }) {
                 <input value={colorInput} onChange={(e) => setColorInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter" && colorInput.trim()) { e.preventDefault(); set("colors", [...form.colors, colorInput.trim()]); setColorInput(""); } }}
                   className="flex-1 min-w-[100px] bg-transparent outline-none text-sm"/>
+              </div>
+            </Field>
+            <Field label="Sizes (press Enter)">
+              <div className="flex flex-wrap gap-1.5 border border-border rounded-lg p-2 bg-white min-h-[42px]">
+                {form.sizes.map((t) => (
+                  <span key={t} className="inline-flex items-center gap-1 px-2 py-1 bg-gold-soft rounded-full text-xs">
+                    {t} <button type="button" onClick={() => set("sizes", form.sizes.filter(x => x !== t))}><X className="w-3 h-3"/></button>
+                  </span>
+                ))}
+                <input value={sizeInput} onChange={(e) => setSizeInput(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter" && sizeInput.trim()) { e.preventDefault(); set("sizes", [...form.sizes, sizeInput.trim()]); setSizeInput(""); } }}
+                  className="flex-1 min-w-[100px] bg-transparent outline-none text-sm"
+                  placeholder="e.g. S, M, L, XL"/>
               </div>
             </Field>
           </div>
