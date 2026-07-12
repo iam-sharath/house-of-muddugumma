@@ -13,6 +13,7 @@ export default function ProductDetails() {
   const [related, setRelated] = useState([]);
   const [activeImg, setActiveImg] = useState(0);
   const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
   const [qty, setQty] = useState(1);
   const [zoom, setZoom] = useState(false);
   const { addToCart, wishlist, toggleWish } = useCart();
@@ -22,6 +23,7 @@ export default function ProductDetails() {
     api.get(`/products/${slug}`).then(({ data }) => {
       setProduct(data);
       setColor(data.colors?.[0] || "");
+      setSize(data.sizes?.[0] || "");
       setActiveImg(0);
       if (data.categories?.[0]) {
         api.get(`/products?category=${encodeURIComponent(data.categories[0])}&limit=8`)
@@ -38,7 +40,7 @@ export default function ProductDetails() {
 
   const onWhatsApp = () => {
     const url = buildWhatsAppUrl([{
-      name: product.name, color, qty, price_inr: product.price_inr, price_gbp: product.price_gbp
+      name: product.name, color, size, qty, price_inr: product.price_inr, price_gbp: product.price_gbp
     }], settings);
     window.open(url, "_blank");
   };
@@ -90,6 +92,17 @@ export default function ProductDetails() {
               </div>
             </div>
           ) : null}
+          {product.sizes?.length ? (
+            <div className="mt-8">
+              <div className="text-xs uppercase tracking-[0.2em] text-brown-soft mb-3">Size: <span className="text-brown-dark font-medium">{size}</span></div>
+              <div className="flex flex-wrap gap-2">
+                {product.sizes.map((s) => (
+                  <button key={s} data-testid={`size-${s}`} onClick={() => setSize(s)}
+                    className={`px-4 py-2 rounded-full text-xs border transition-colors ${s === size ? "border-gold bg-gold-soft text-brown-dark" : "border-border hover:border-gold"}`}>{s}</button>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
           <div className="mt-8 flex items-center gap-4">
             <div className="text-xs uppercase tracking-[0.2em] text-brown-soft">Quantity</div>
@@ -102,7 +115,7 @@ export default function ProductDetails() {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <button data-testid="pd-add-cart"
-              onClick={() => { addToCart(product, { color, qty }); toast.success("Added to cart"); }}
+              onClick={() => { addToCart(product, { color, size, qty }); toast.success("Added to cart"); }}
               className="btn-gold flex-1 min-w-[180px]">Add to Cart</button>
             <button data-testid="pd-whatsapp" onClick={onWhatsApp} className="btn-wa flex-1 min-w-[180px]">
               <MessageCircle className="w-4 h-4"/> Order on WhatsApp
