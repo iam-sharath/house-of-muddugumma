@@ -1,3 +1,4 @@
+import re
 import uuid
 from typing import Optional
 
@@ -38,11 +39,11 @@ async def list_products(
     if status:
         query["status"] = status
     if category:
-        query["categories"] = category
+        query["categories"] = {"$regex": f"^{re.escape(category.strip())}$", "$options": "i"}
     if collection:
-        query["collections"] = collection
+        query["collections"] = {"$regex": f"^{re.escape(collection.strip())}$", "$options": "i"}
     if tag:
-        query["tags"] = tag
+        query["tags"] = {"$regex": f"^{re.escape(tag.strip())}$", "$options": "i"}
     if q:
         query["$or"] = [
             {"name": {"$regex": q, "$options": "i"}},
